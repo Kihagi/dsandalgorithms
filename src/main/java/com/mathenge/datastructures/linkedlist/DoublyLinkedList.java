@@ -60,6 +60,47 @@ public class DoublyLinkedList {
         size++;
     }
 
+    /**
+     * Insert at nth Index
+     */
+    public void insertAtIndex(int index, int value) {
+        if (index == 0) {
+            insertHead(value);
+        }
+
+        if (index == size) {
+            insertTail(value);
+        }
+
+        Node temp = head;
+        for (int i = 1; i < index; i++) {
+            temp = temp.next;
+        }
+
+        Node newNode = new Node(value);
+        temp.next.prev = newNode;
+        newNode.next = temp.next;
+        newNode.prev = temp;
+        temp.next = newNode;
+
+        size++;
+    }
+
+    /**
+     * Print Reverse LinkedList
+     */
+    public void printReverse() {
+        if (tail == null) {
+            System.out.println("Nothing to reverse");
+        }
+        Node temp = tail;
+        while (temp != null) {
+            System.out.print(temp.value + " -> ");
+            temp = temp.prev;
+        }
+        System.out.print("END");
+    }
+
 
     public void printList() {
         Node current = head;
@@ -95,11 +136,10 @@ public class DoublyLinkedList {
         list.insertHead(60);
         list.insertHead(50);
         list.insertHead(20);
-
-        list.printList();
-
         list.insertTail(10);
+        list.insertAtIndex(3, 90);
 
         list.printList();
+        list.printReverse();
     }
 }
