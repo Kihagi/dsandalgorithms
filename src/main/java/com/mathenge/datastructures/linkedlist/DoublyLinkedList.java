@@ -87,6 +87,54 @@ public class DoublyLinkedList {
     }
 
     /**
+     * Delete first item (head)
+     */
+    public void deleteHead() {
+        if (head == null) {
+            System.out.println("head is null");
+            return;
+        }
+        head = head.next;
+        head.next.prev = null;
+        size--;
+    }
+
+    /**
+     * Delete last item (tail)
+     */
+    public void deleteTail() {
+        if (tail == null) {
+            System.out.println("tail is null");
+            return;
+        }
+        tail = tail.prev;
+        tail.next = null;
+    }
+
+    /**
+     * Delete item at index
+     */
+    public void deleteAtIndex(int index) {
+        if (index == 0) {
+            deleteHead();
+        }
+        if (index == size - 1) {
+            deleteTail();
+        }
+
+        //Get item at index
+        Node temp = head;
+        for(int i = 0; i < index; i++) {
+            System.out.println("Value at i: " + i + " is: " + temp.value);
+            temp = temp.next;
+        }
+        temp.prev.next = temp.next;
+        temp.next.prev = temp.prev;
+
+        size--;
+    }
+
+    /**
      * Print Reverse LinkedList
      */
     public void printReverse() {
@@ -140,6 +188,11 @@ public class DoublyLinkedList {
         list.insertAtIndex(3, 90);
 
         list.printList();
-        list.printReverse();
+        //list.printReverse();
+        //list.deleteHead();
+        //list.deleteTail();
+
+        list.deleteAtIndex(2);
+        list.printList();
     }
 }
