@@ -10,8 +10,7 @@ public class SquaresOfSortedArray {
      * After sorting, it becomes [0,1,9,16,100].
      */
 
-    public int[] sortedSquares(int[] nums) {
-        Arrays.sort(nums);
+    public int[] sortedSquaresBrute(int[] nums) {
         int[] squares = new int[nums.length];
         for (int i = 0; i < nums.length; i++) {
             int squared = nums[i] * nums[i];
@@ -21,13 +20,36 @@ public class SquaresOfSortedArray {
         return squares;
     }
 
+    public int[] sortedSquaresOptimized(int[] nums) {
+        //Create new array to house the new items
+        int[] results = new int[nums.length];
+
+        int head = 0;
+        int tail = nums.length - 1;
+
+        for (int i = 0; i < nums.length; i++) {
+            nums[i]*=nums[i];
+        }
+
+        for (int j = nums.length - 1; j >= 0; j--) {
+            if (nums[head] > nums[tail]) {
+                results[j] = nums[head];
+                head++;
+            } else {
+                results[j] = nums[tail];
+                tail--;
+            }
+        }
+        return results;
+    }
+
     /**
      * Driver Code
      */
     public static void main(String[] args) {
         SquaresOfSortedArray squaresOfSortedArray = new SquaresOfSortedArray();
         int[] nums = new int[]{-4,-1,0,3,10};
-        int[] squares =  squaresOfSortedArray.sortedSquares(nums);
+        int[] squares =  squaresOfSortedArray.sortedSquaresOptimized(nums);
         for (int square : squares) {
             System.out.print(square + " , ");
         }
